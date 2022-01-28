@@ -38,14 +38,20 @@ public class BlockTataraSmelting extends BlockBase {
             return;
         }
         Random rand = world instanceof World ? ((World) world).rand : RANDOM;
-        if (rand.nextInt(10) == 0) {
-            for (int i = 0; i < 2; ++i) {
+
+        // 玉鋼のドロップ判定と処理
+        int rate = (fortune * 5) + 10;
+        if (rand.nextInt(100) < rate) {
+            drops.add(new ItemStack(ItemLoader.MATERIAL, 1, 55));
+
+            for (int i = 0; i < 1 + fortune; ++i) {
                 if (rand.nextInt(2) == 0) {
                     drops.add(new ItemStack(ItemLoader.MATERIAL, 1, 55));
                 }
             }
+        }
 
-        } else for (int i = 0; i < 9 + fortune; ++i) {
+        for (int i = 0; i < 9 + fortune; ++i) {
             switch (SakuraConfig.harder_iron_difficult) {
                 case 1:
                     if (rand.nextInt(9) <= 7) {
